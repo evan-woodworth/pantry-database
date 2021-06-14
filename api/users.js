@@ -202,7 +202,7 @@ const addRecipe = async (req,res) => {
                 let addIng = Ingredient.findOne({name:ing.name});
                 recipe.ingredients.push({
                     addIng,
-                    name: addIng.name,
+                    name: ing.name,
                     measurement: ing.measurement
                 })
             })
