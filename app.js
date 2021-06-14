@@ -25,7 +25,7 @@ require('./config/passport')(passport);
 
 // Home route
 app.get('/', (req, res) => {
-    res.status(200).json({ message: 'The Database Home route' });
+    res.send("this should work");
 });
 
 // Routes
