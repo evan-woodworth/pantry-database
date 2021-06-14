@@ -181,7 +181,7 @@ const fetchShoppingLists = async (req,res) => {
 const addRecipe = async (req,res) => {
     console.log( "Inside of put users/recipes route" );
     const { name, mealId, category, area, thumbnail, tags, 
-        instructions, ingredients, public, youtubeUrl, user } = req.body;
+        instruction, ingredients, public, youtubeUrl, user } = req.body;
 
     try {
         // retrieve user
@@ -195,7 +195,7 @@ const addRecipe = async (req,res) => {
             console.log('creating recipe')
             recipe = new Recipe({
                 name, mealId, category, area, thumbnail, tags,
-                instructions, public, youtubeUrl
+                instruction, public, youtubeUrl
             })
             recipe.author = theUser;
             ingredients.forEach(async ing => {
