@@ -63,6 +63,30 @@ const fetchAll = async (req, res) => {
     }
 }
 
+const editRecipe = async (req, res) => {
+    console.log('--- Inside of Recipe fetchAll ---');
+    console.log(`Searching for all recipes`);
+    const { name, mealId, category, area,
+        instruction, youtubeUrl} = req.body;
+
+    try {
+        let recipe = await Recipe.findOne({ mealId });
+
+        console.log('updating recipe')
+        recipe.name = name;
+        recipe.category = category;
+        recipe.area = area;
+        recipe.instructions = instruction;
+        recipe.youtubeUrl = youtubeUrl;
+        const savedRecipe = recipe.save();
+        res.json(savedRecipe)
+        } catch (error) {
+            console.log("Error inside of /recipes/edit");
+            console.log(error);
+            return res.status(400).json({message:'Recipe not edited, please try again.'})
+        }
+}
+
 // routes
 // get
 router.get('/test', test)
@@ -73,5 +97,7 @@ router.get('/', fetchAll)
 // post
 
 // put
+router.put('/edit', editRecipe);
+
 
 module.exports = router; 
