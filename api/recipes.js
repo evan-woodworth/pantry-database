@@ -76,7 +76,7 @@ const editRecipe = async (req, res) => {
         recipe.name = name;
         recipe.category = category;
         recipe.area = area;
-        recipe.instructions = instruction;
+        recipe.instruction = instruction;
         recipe.youtubeUrl = youtubeUrl;
         const savedRecipe = recipe.save();
         res.json(savedRecipe)
