@@ -20,8 +20,5 @@
     "mongoose": "^5.12.13",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0"
-  },
-  "engines": {
-    "node": "14.x"
   }
 }
