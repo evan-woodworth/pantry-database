@@ -19,7 +19,8 @@ const recipeSchema = new Schema({
     }],
     author: {type: mongoose.Schema.Types.ObjectId, ref: "User"},
     public: Boolean,
-    youtubeUrl: String
+    youtubeUrl: String,
+    custom: Boolean
 })
 
 const Recipe = mongoose.model('Recipe', recipeSchema);
