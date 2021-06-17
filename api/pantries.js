@@ -170,12 +170,9 @@ const deleteIngredient = async (req,res) => {
             // console.log("pantry ingredients",pantry.ingredients)
             console.log("Removing Ingredient: ",pantry.ingredients.id(refId));
             pantry.ingredients.id(refId).remove();
-            pantry.save();
+            const savedPantry = pantry.save();
+            res.json(savedPantry);
         })
-        // thePantry.ingredients.id(ingredient).remove();
-        // console.log('removed ingredient')
-        // const savedPantry = await thePantry.save();
-        // res.json(savedPantry);
     } catch (error) {
         console.log('Error inside of /api/pantries/deleteIngredient');
         console.log(error);

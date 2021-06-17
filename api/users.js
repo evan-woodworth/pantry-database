@@ -137,16 +137,6 @@ const recipes = async (req,res) => {
         console.log(user.recipes.ingredients)
         res.json(user.recipes);
     })
-
-    // // retrieve recipes associated with user
-    // let recipeList = [];
-    // user.recipes.forEach(async item=>{
-    //     let theRecipe = await Recipe.findById(item.id);
-    //     recipeList.push(theRecipe);
-    // })
-     
-    // // display recipes
-    // res.json(recipeList);
 }
 
 const pantries = async (req,res) => {
@@ -246,6 +236,26 @@ const addPantry = async (req,res) => {
     }
 }
 
+const removeRecipe = async (req,res) => {
+    const userId = req.user.id;
+    const recipeId = req.params.id;
+    console.log( "Inside of delete route users/recipes/:id" );
+
+    try {
+        // fetch user
+        const user = await User.findById(userId);
+        console.log(user);
+        user.recipes.pull(recipeId);
+        const savedUser = await user.save();
+        console.log(savedUser);
+        res.json(savedUser);
+    } catch (error) {
+        console.log("Error inside of delete route users/recipes/:id");
+        console.log(error);
+        return res.status(400).json({ message: 'Recipe could not be removed, please try again.' });
+    }
+}
+
 // routes
 // get
 router.get('/test', test);
@@ -269,5 +279,8 @@ router.post('/login', login);
 router.put('/recipes', addRecipe)
 // PUT api/users/pantries/:id (Private)
 router.put('/pantries/:id', addPantry)
+
+// delete
+router.delete('/recipes/:id', passport.authenticate('jwt', { session: false }), removeRecipe)
 
 module.exports = router; 
