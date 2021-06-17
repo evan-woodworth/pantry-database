@@ -134,7 +134,6 @@ const recipes = async (req,res) => {
     .populate("ingredients.ingredient")
     .exec((err, user)=>{
         if (err) console.log("error",err);
-        console.log(user.recipes.ingredients)
         res.json(user.recipes);
     })
 }
@@ -199,12 +198,17 @@ const addRecipe = async (req,res) => {
             const savedRecipe = recipe.save();
             res.json(savedRecipe)
         }
-        // add recipe to user
-        theUser.recipes.push(recipe);
-
-        // save user
-        theUser.save()
-
+        // if not already associated
+        if (!theUser.recipes.includes(recipe._id)) {
+            console.log("adding recipe")
+            // add recipe to user
+            theUser.recipes.push(recipe);
+            // save user
+            const savedUser = await theUser.save()
+            res.json(savedUser)
+        } else {
+            res.json(theUser)
+        }
     } catch (error) {
         console.log("Error inside of put users/recipes route");
         console.log(error);
